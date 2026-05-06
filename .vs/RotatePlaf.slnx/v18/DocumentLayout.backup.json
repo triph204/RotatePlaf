@@ -3,6 +3,17 @@
   "WorkspaceRootPath": "C:\\Unity\\New folder\\RotatePlaf\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\admin\\Downloads\\SceneChanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\unity\\new folder\\rotateplaf\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\unity\\new folder\\rotateplaf\\assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\unity\\new folder\\rotateplaf\\assets\\scripts\\plaf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\plaf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -43,6 +54,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "SceneChanger.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Downloads\\SceneChanger.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Users\\admin\\Downloads\\SceneChanger.cs",
+              "ToolTip": "C:\\Users\\admin\\Downloads\\SceneChanger.cs",
+              "RelativeToolTip": "..\\..\\..\\Users\\admin\\Downloads\\SceneChanger.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T07:06:05.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Gamemanager.cs",
+              "DocumentMoniker": "C:\\Unity\\New folder\\RotatePlaf\\Assets\\Scripts\\Gamemanager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Gamemanager.cs",
+              "ToolTip": "C:\\Unity\\New folder\\RotatePlaf\\Assets\\Scripts\\Gamemanager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Gamemanager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T07:01:07.396Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlayerMovement.cs",
+              "DocumentMoniker": "C:\\Unity\\New folder\\RotatePlaf\\Assets\\Scripts\\PlayerMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovement.cs",
+              "ToolTip": "C:\\Unity\\New folder\\RotatePlaf\\Assets\\Scripts\\PlayerMovement.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerMovement.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAswF0AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-05T08:11:47.669Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Plaf.cs",
               "DocumentMoniker": "C:\\Unity\\New folder\\RotatePlaf\\Assets\\Scripts\\Plaf.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Plaf.cs",
@@ -50,8 +100,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Plaf.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAAACsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-21T09:15:38.204Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-21T09:15:38.204Z"
             }
           ]
         },
