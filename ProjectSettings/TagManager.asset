@@ -13,9 +13,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
-  - 
-  - 
+  - Plaf
+  - Player
+  - BG
   - 
   - 
   - 
@@ -42,6 +42,21 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG
+    uniqueID: 1172184105
+    locked: 0
+  - name: Plaf
+    uniqueID: 3161971869
+    locked: 0
+  - name: Door
+    uniqueID: 1330854205
+    locked: 0
+  - name: Player
+    uniqueID: 10030289
+    locked: 0
+  - name: Canvas
+    uniqueID: 161681087
     locked: 0
   m_RenderingLayers:
   - Default

@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     private static readonly float[] GravAngles = { 0f, -90f, 180f, 90f };
 
     private int gravDir = 0;
-    private bool canRotate = true;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -100,8 +99,8 @@ public class PlayerMovement : MonoBehaviour
         rotateCooldown -= Time.deltaTime;
         if (rotateCooldown > 0f) return;
 
-        if (Keyboard.current.eKey.wasPressedThisFrame) { Rotate(-1); rotateCooldown = 1f; }
-        else if (Keyboard.current.qKey.wasPressedThisFrame) { Rotate(+1); rotateCooldown = 1f; }
+        if (Keyboard.current.qKey.wasPressedThisFrame) { Rotate(-1); rotateCooldown = 1f; }
+        else if (Keyboard.current.eKey.wasPressedThisFrame) { Rotate(+1); rotateCooldown = 1f; }
     }
 
     private void Rotate(int dir)
@@ -168,7 +167,6 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.identity;
         rb.linearVelocity = Vector2.zero;
         moveInput = Vector2.zero;
-        canRotate = true;
         rotateCooldown = 0f;
         IsDead = false;
         GetComponent<Collider2D>().enabled = true;
@@ -180,5 +178,5 @@ public class PlayerMovement : MonoBehaviour
         animator.Play("Idle");
     }
 
-  
+   
 }
