@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e33f023bd7557e34190a19b84d5408ed
+guid: 17cb2e25b0765ba45b9e4f5ca5e3c2ee
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6022337359400110510
-    second: Gray_0
+      213: 6358040702757662528
+    second: Yellow_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gray_0
+      name: Yellow_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 256746f441c5c6ca0800000000000000
-      internalID: -6022337359400110510
+      spriteID: 04f6853355c4c3850800000000000000
+      internalID: 6358040702757662528
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gray_0: -6022337359400110510
+      Yellow_0: 6358040702757662528
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

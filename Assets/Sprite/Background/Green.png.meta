@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b5011beecad919141aec0f4e4d652b53
+guid: cfb34c06f69bd80449a5f0ef3e123151
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7381184880430962403
-    second: Pink_0
+      213: -4987337320017983735
+    second: Green_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pink_0
+      name: Green_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d19ad6c5573c09990800000000000000
-      internalID: -7381184880430962403
+      spriteID: 9078749a12b69cab0800000000000000
+      internalID: -4987337320017983735
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Pink_0: -7381184880430962403
+      Green_0: -4987337320017983735
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
