@@ -25,6 +25,7 @@ public class DoorOpen : MonoBehaviour
 
         PlayerMovement pm = other.GetComponent<PlayerMovement>();
         if (pm == null || pm.GravDir != 0) return;
+        Audio.instance.PlaySound(Audio.instance.open);
 
         StartCoroutine(PlayOpenAnimation());
     }

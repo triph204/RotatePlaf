@@ -17,140 +17,167 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravityStrength = 25f;
     [SerializeField] private float maxFallSpeed = 20f;
 
-    // Hướng gravity: 0=xuống 1=trái 2=lên 3=phải
+    [Header("Respawn")]
+    [SerializeField] private Transform respawnPoint;
+
     private static readonly Vector2[] GravVectors = { Vector2.down, Vector2.left, Vector2.up, Vector2.right };
     private static readonly float[] GravAngles = { 0f, -90f, 180f, 90f };
 
-    private int gravDir = 0;
+    private int _gravDir = 0;
+    public int GravDir => _gravDir;
+    private Vector2 RightAxis => new Vector2(-GravVectors[_gravDir].y, GravVectors[_gravDir].x);
 
-    private Rigidbody2D rb;
-    private Animator animator;
-    private SpriteRenderer sr;
+    private Rigidbody2D _rb;
+    private Animator _animator;
+    private SpriteRenderer _sr;
 
-    private Vector2 moveInput;
-    private bool isGrounded;
+    private Vector2 _moveInput;
+    private bool _isGrounded;
+    private bool _wasGrounded;
+    private bool _isRunning;
+    private float _rotateCooldown;
 
-    [HideInInspector] public bool IsDead;
+    public bool IsDead { get; private set; }
 
-    public int GravDir => gravDir;
-    private Vector2 RightAxis => new Vector2(-GravVectors[gravDir].y, GravVectors[gravDir].x);
+    // ── Lifecycle ─────────────────────────────────────────────────────────────
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
-        rb.gravityScale = 0;
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _sr = GetComponent<SpriteRenderer>();
+        _rb.gravityScale = 0;
     }
+
+    // ── Update ────────────────────────────────────────────────────────────────
 
     private void Update()
     {
         if (IsDead) return;
-
         HandleRotateInput();
+        HandleRunSound();
     }
 
     private void FixedUpdate()
     {
         if (IsDead) return;
-
         ApplyGravity();
         ApplyMovement();
         CheckGrounded();
         UpdateAnimator();
     }
 
-    // ── GRAVITY ──────────────────────────────────────────────────────
+    // ── Physics ───────────────────────────────────────────────────────────────
 
     private void ApplyGravity()
     {
-        Vector2 gAxis = GravVectors[gravDir];
-        rb.AddForce(gAxis * gravityStrength, ForceMode2D.Force);
-
-        float falling = Vector2.Dot(rb.linearVelocity, gAxis);
+        Vector2 gravAxis = GravVectors[_gravDir];
+        _rb.AddForce(gravAxis * gravityStrength, ForceMode2D.Force);
+        float falling = Vector2.Dot(_rb.linearVelocity, gravAxis);
         if (falling > maxFallSpeed)
-            rb.linearVelocity -= gAxis * (falling - maxFallSpeed);
+            _rb.linearVelocity -= gravAxis * (falling - maxFallSpeed);
     }
-
-    // ── MOVEMENT ─────────────────────────────────────────────────────
 
     private void ApplyMovement()
     {
-        Vector2 gravAxis = GravVectors[gravDir];
-        float gravVel = Vector2.Dot(rb.linearVelocity, gravAxis);
-        rb.linearVelocity = RightAxis * moveInput.x * moveSpeed + gravAxis * gravVel;
+        float gravVel = Vector2.Dot(_rb.linearVelocity, GravVectors[_gravDir]);
+        _rb.linearVelocity = RightAxis * _moveInput.x * moveSpeed + GravVectors[_gravDir] * gravVel;
     }
-
-    // ── JUMP ─────────────────────────────────────────────────────────
 
     private void CheckGrounded()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        _wasGrounded = _isGrounded;
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        if (!_wasGrounded && _isGrounded)
+            Audio.instance.PlaySound(Audio.instance.fall);
     }
 
-    // ── ROTATE ───────────────────────────────────────────────────────
+    // ── Sound ─────────────────────────────────────────────────────────────────
 
-    private float rotateCooldown = 0f;
+    private void HandleRunSound()
+    {
+        bool shouldRun = Mathf.Abs(_moveInput.x) > 0.05f && _isGrounded;
+
+        if (shouldRun && !_isRunning)
+        {
+            _isRunning = true;
+            Audio.instance.PlaySound(Audio.instance.run);
+        }
+        else if (!shouldRun && _isRunning)
+        {
+            _isRunning = false;
+        }
+    }
+
+    // ── Rotate ────────────────────────────────────────────────────────────────
 
     private void HandleRotateInput()
     {
         if (Keyboard.current == null) return;
+        _rotateCooldown -= Time.deltaTime;
+        if (_rotateCooldown > 0f) return;
 
-        rotateCooldown -= Time.deltaTime;
-        if (rotateCooldown > 0f) return;
-
-        if (Keyboard.current.qKey.wasPressedThisFrame) { Rotate(-1); rotateCooldown = 1f; }
-        else if (Keyboard.current.eKey.wasPressedThisFrame) { Rotate(+1); rotateCooldown = 1f; }
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            Rotate(-1);
+            _rotateCooldown = 1f;
+            Audio.instance.PlaySound(Audio.instance.rotate);
+        }
+        else if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            Rotate(+1);
+            _rotateCooldown = 1f;
+            Audio.instance.PlaySound(Audio.instance.rotate);
+        }
     }
 
     private void Rotate(int dir)
     {
-        gravDir = ((gravDir + dir) % 4 + 4) % 4;
-        transform.rotation = Quaternion.Euler(0, 0, GravAngles[gravDir]);
-        rb.linearVelocity = Vector2.zero;
+        _gravDir = ((_gravDir + dir) % 4 + 4) % 4;
+        transform.rotation = Quaternion.Euler(0, 0, GravAngles[_gravDir]);
+        _rb.linearVelocity = Vector2.zero;
     }
 
-    // ── INPUT CALLBACKS (PlayerInput component) ──────────────────────
+    // ── Input callbacks ───────────────────────────────────────────────────────
 
     public void OnMove(InputAction.CallbackContext ctx)
     {
         if (IsDead) return;
-        moveInput = ctx.ReadValue<Vector2>();
-        animator.SetFloat("Run", Mathf.Abs(moveInput.x));
-        if (moveInput.x > 0.05f) sr.flipX = false;
-        else if (moveInput.x < -0.05f) sr.flipX = true;
+        _moveInput = ctx.ReadValue<Vector2>();
+        _animator.SetFloat("Run", Mathf.Abs(_moveInput.x));
+        if (_moveInput.x > 0.05f) _sr.flipX = false;
+        else if (_moveInput.x < -0.05f) _sr.flipX = true;
     }
 
     public void OnJump(InputAction.CallbackContext ctx)
     {
-        if (IsDead || !ctx.performed || !isGrounded) return;
-        Vector2 jumpDir = -GravVectors[gravDir];
-        float hVel = Vector2.Dot(rb.linearVelocity, RightAxis);
-        rb.linearVelocity = RightAxis * hVel + jumpDir * jumpForce;
+        if (IsDead || !ctx.performed || !_isGrounded) return;
+        float hVel = Vector2.Dot(_rb.linearVelocity, RightAxis);
+        Audio.instance.PlaySound(Audio.instance.jump);
+        _rb.linearVelocity = RightAxis * hVel + (-GravVectors[_gravDir]) * jumpForce;
     }
 
-    // ── ANIMATOR ─────────────────────────────────────────────────────
+    // ── Animator ──────────────────────────────────────────────────────────────
 
     private void UpdateAnimator()
     {
-        float gravVel = Vector2.Dot(rb.linearVelocity, GravVectors[gravDir]);
-        animator.SetBool("IsGrounded", isGrounded);
-        animator.SetBool("IsJumping", !isGrounded && gravVel < 0);
-        animator.SetBool("IsFalling", !isGrounded && gravVel > 0.1f);
+        float gravVel = Vector2.Dot(_rb.linearVelocity, GravVectors[_gravDir]);
+        _animator.SetBool("IsGrounded", _isGrounded);
+        _animator.SetBool("IsJumping", !_isGrounded && gravVel < 0);
+        _animator.SetBool("IsFalling", !_isGrounded && gravVel > 0.1f);
     }
 
-    // ── DIE / RESPAWN ─────────────────────────────────────────────────
-
-    [Header("Respawn")]
-    [SerializeField] private Transform respawnPoint;
+    // ── Die / Respawn ─────────────────────────────────────────────────────────
 
     public void Die()
     {
         if (IsDead) return;
         IsDead = true;
-        moveInput = Vector2.zero;
-        rb.linearVelocity = Vector2.zero;
-        animator.SetTrigger("Die");
+        _moveInput = Vector2.zero;
+        _rb.linearVelocity = Vector2.zero;
+        _animator.SetTrigger("Die");
+        Audio.instance.PlaySound(Audio.instance.die);
         StartCoroutine(RespawnRoutine());
     }
 
@@ -162,21 +189,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Respawn()
     {
-        gravDir = 0;
+        _gravDir = 0;
+        IsDead = false;
+        _moveInput = Vector2.zero;
+        _rotateCooldown = 0f;
+
         transform.position = respawnPoint.position;
         transform.rotation = Quaternion.identity;
-        rb.linearVelocity = Vector2.zero;
-        moveInput = Vector2.zero;
-        rotateCooldown = 0f;
-        IsDead = false;
+        _rb.linearVelocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = true;
-        animator.ResetTrigger("Die");
-        animator.SetFloat("Run", 0f);
-        animator.SetBool("IsJumping", false);
-        animator.SetBool("IsFalling", false);
-        animator.SetBool("IsGrounded", true);
-        animator.Play("Idle");
-    }
 
-   
+        _animator.ResetTrigger("Die");
+        _animator.Play("Idle");
+    }
 }

@@ -49,6 +49,9 @@ TagManager:
   - name: Plaf
     uniqueID: 3161971869
     locked: 0
+  - name: TRAP
+    uniqueID: 451657197
+    locked: 0
   - name: Door
     uniqueID: 1330854205
     locked: 0
