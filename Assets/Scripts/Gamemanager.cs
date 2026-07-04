@@ -8,4 +8,8 @@ public class Gamemanager : MonoBehaviour
     {
         SceneManager.LoadScene(tenScene);
     }
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

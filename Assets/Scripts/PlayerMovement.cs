@@ -173,11 +173,16 @@ public class PlayerMovement : MonoBehaviour
     public void Die()
     {
         if (IsDead) return;
+
         IsDead = true;
         _moveInput = Vector2.zero;
         _rb.linearVelocity = Vector2.zero;
+
         _animator.SetTrigger("Die");
         Audio.instance.PlaySound(Audio.instance.die);
+
+    
+
         StartCoroutine(RespawnRoutine());
     }
 
@@ -191,15 +196,14 @@ public class PlayerMovement : MonoBehaviour
     {
         _gravDir = 0;
         IsDead = false;
-        _moveInput = Vector2.zero;
-        _rotateCooldown = 0f;
 
         transform.position = respawnPoint.position;
         transform.rotation = Quaternion.identity;
         _rb.linearVelocity = Vector2.zero;
-        GetComponent<Collider2D>().enabled = true;
 
-        _animator.ResetTrigger("Die");
-        _animator.Play("Idle");
+        _animator.enabled = true;
+        _animator.Rebind();
+        _animator.Update(0);
+        _animator.Play("Idle", 0, 0);
     }
 }

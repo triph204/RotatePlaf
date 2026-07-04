@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using System.Collections;
 
 [RequireComponent(typeof(Collider2D))]
@@ -7,7 +6,7 @@ public class DoorPass : MonoBehaviour
 {
     [SerializeField] private DoorOpen doorOpen;
     [SerializeField] private int thisLevelNumber;
-    public UnityEvent onPlayerPass;
+    [SerializeField] private string nextSceneName;
 
     private bool hasPassed = false;
 
@@ -24,7 +23,6 @@ public class DoorPass : MonoBehaviour
 
         hasPassed = true;
 
-        // Mở khóa màn tiếp theo
         int current = PlayerPrefs.GetInt("unlocked_level", 1);
         if (thisLevelNumber >= current)
         {
@@ -38,6 +36,8 @@ public class DoorPass : MonoBehaviour
     private IEnumerator DelayPass()
     {
         yield return new WaitForSeconds(2f);
-        onPlayerPass?.Invoke();
+        Audio.instance.PlaySound(Audio.instance.pass);
+        if (SceneTransition.Instance != null && !string.IsNullOrEmpty(nextSceneName))
+            SceneTransition.Instance.LoadScene(nextSceneName);
     }
 }
